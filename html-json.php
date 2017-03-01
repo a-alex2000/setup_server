@@ -1,38 +1,37 @@
 <tt>запрос обрабатывается ...</tt>
 <?php
-/*Домашнее задание к лекции 2.1 «Установка и настройка веб-сервера»
 
-Необходимо вывести таблицу из JSON-файла в виде HTML таблицы.
-
-JSON-файл хранит данные телефонной книжки.
-
-Пример JSON-файла:
-
-
-[{
-  "firstName": "Иван",
-  "lastName": "Иванов",
-  "address": "г.Москва, ул. Алиева,2",
-  "phoneNumber": "812 123-1234"
-}, {
-  ...
-}]
-*/
-$url = mb_convert_encoding ($url, "UTF-8");
+#$url = mb_convert_encoding ($url, "UTF-8");
 $site = file_get_contents ("db.json");
 
 $str = explode ("\"",$site);
 $i = 0;
 $y = count($str);
-$z = 0;
 
+$a = null; # одномерный массив 
 while ($i<$y) {
-  
-  if (($i%2) == 1) {echo $str[$i];$z++;}
+
+  if (($i%2) == 1) $a[] = $str[$i];
   $i++;
-  if (($z%2) == 0) {echo "<br>";}
+
 }
-
-
+$i = 0;
+$y = count($a);
+echo "<table border=1>";
+while ($i<$y){
+  if (($i%8)==0) {
+    echo "<tr>";
+    echo "<td>".$a[$i+1];
+    echo "</td>";
+    echo "<td>".$a[$i+3];
+    echo "</td>";
+    echo "<td>".$a[$i+5];
+    echo "</td>";
+    echo "<td>".$a[$i+7];
+    echo "</td>";
+    echo "</tr>";
+  }
+  $i++;
+}
+echo "</table>";
 ?>
- 
